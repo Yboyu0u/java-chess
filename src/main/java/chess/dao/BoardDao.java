@@ -36,11 +36,29 @@ public class BoardDao {
         System.out.println(resultSet.toString());
 
         if (!resultSet.next()) {
-           throw new SQLException("");
+            throw new SQLException("");
         }
 
         final String turn = resultSet.getString("turn");
         final int id = resultSet.getInt("id");
         return new BoardInformationDto(id, turn);
+    }
+
+    public void updateTurnById(final BoardInformationDto dto, final Connection connection) throws SQLException {
+        final int id = dto.getId();
+        final String newTurn = dto.getTurn();
+        final String sql = "update board set turn = ? where id = ?";
+
+        final PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setString(1, newTurn);
+        statement.setInt(2, id);
+        statement.executeUpdate();
+    }
+
+    public void deleteById(int id, Connection connection) throws SQLException {
+        final String sql = "delete from board where id = ?";
+        final PreparedStatement statement = connection.prepareStatement(sql);
+        statement.setInt(1, id);
+        statement.executeUpdate();
     }
 }
