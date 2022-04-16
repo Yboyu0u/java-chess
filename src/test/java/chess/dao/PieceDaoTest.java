@@ -26,15 +26,15 @@ public class PieceDaoTest {
         final Connection connection = MysqlConnector.connect();
 
         assertDoesNotThrow(()
-                -> pieceDao.save(1, 2, "BISHOP_BLACK", "white", 1, connection));
+                -> pieceDao.save(1, 2, "BISHOP_BLACK", 1, connection));
     }
 
     @DisplayName("boardId로 기물들을 찾는 기능 테스트")
     @Test
     void findPieceByBoardId() throws SQLException {
         Connection connection = MysqlConnector.connect();
-        pieceDao.save(1, 2, "BISHOP_BLACK", "white", 1, MysqlConnector.connect());
-        List<PieceDto> pieces = pieceDao.findPieceByBoardId(1, connection);
+        pieceDao.save(1, 2, "BISHOP_BLACK", 1, MysqlConnector.connect());
+        List<PieceDto> pieces = pieceDao.findPiecesByBoardId(1, connection);
 
         assertThat(pieces).isNotEmpty();
     }
