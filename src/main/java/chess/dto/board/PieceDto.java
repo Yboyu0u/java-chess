@@ -1,6 +1,6 @@
 package chess.dto.board;
 
-import chess.domain.Symbol;
+import chess.domain.piece.Symbol;
 import chess.domain.postion.File;
 import chess.domain.postion.Rank;
 

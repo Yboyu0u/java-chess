@@ -1,9 +1,10 @@
-package chess;
+package chess.domain.state;
 
 import chess.domain.Board;
-import chess.domain.Symbol;
+import chess.domain.piece.Symbol;
 import chess.domain.piece.Nothing;
 import chess.domain.piece.Piece;
+import chess.domain.piece.Team;
 import chess.domain.postion.Position;
 import chess.domain.state.Black;
 import chess.domain.state.State;
@@ -46,7 +47,7 @@ public class StateFactory {
     }
 
     private static State decideState(final String turn, final Board board) {
-        if (turn.equals("white")) {
+        if (turn.equals(Team.WHITE.name())) {
             return new White(board);
         }
 

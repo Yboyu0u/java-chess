@@ -2,6 +2,7 @@ package chess.dto.board;
 
 import chess.domain.Board;
 import chess.domain.piece.Piece;
+import chess.domain.piece.Team;
 import chess.domain.postion.File;
 import chess.domain.postion.Position;
 import chess.domain.postion.Rank;
@@ -69,18 +70,18 @@ public class BoardDto {
         final Rank rank = position.getRank();
 
         if ((file.getNumber() + rank.getNumber()) % 2 == 0) {
-            return "black";
+            return Team.BLACK.name();
         }
 
-        return "white";
+        return Team.WHITE.name();
     }
 
     private static String decideTurn(final State state) {
         if (state instanceof White) {
-            return "white";
+            return Team.WHITE.name();
         }
 
-        return "black";
+        return Team.BLACK.name();
     }
 
     public List<List<PieceDto>> getCells() {

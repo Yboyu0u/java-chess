@@ -7,11 +7,13 @@ import chess.dao.PieceDao;
 import chess.domain.Board;
 import chess.domain.BoardInitializer;
 import chess.domain.Score;
-import chess.domain.Symbol;
+import chess.domain.piece.Symbol;
 import chess.domain.command.Command;
 import chess.domain.piece.Piece;
+import chess.domain.piece.Team;
 import chess.domain.postion.Position;
 import chess.domain.state.State;
+import chess.domain.state.StateFactory;
 import chess.dto.board.MovePositionDto;
 import chess.dto.ResponseDto;
 import chess.dto.ResultDto;
@@ -52,9 +54,9 @@ public final class ChessService {
     }
 
     private String decideTurn(final String turn) {
-        String newTurn = "white";
-        if (turn.equals("white")) {
-            newTurn = "black";
+        String newTurn = Team.WHITE.name();
+        if (turn.equals(Team.WHITE.name())) {
+            newTurn = Team.BLACK.name();
         }
 
         return newTurn;
@@ -70,7 +72,7 @@ public final class ChessService {
     }
 
     private void save(final Board board) throws SQLException {
-        final int newBoardId = boardDao.save("white", connect());
+        final int newBoardId = boardDao.save(Team.WHITE.name(), connect());
         final Map<Position, Piece> cells = board.cells();
 
         for (Position position : cells.keySet()) {
@@ -87,8 +89,7 @@ public final class ChessService {
     }
 
     public Score status() throws SQLException {
-        final State state = makeState();
-        return Score.from(state.board());
+        return Score.from(makeState().board());
     }
 
     public ResultDto result() throws SQLException {
