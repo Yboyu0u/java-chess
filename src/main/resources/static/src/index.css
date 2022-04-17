@@ -1,7 +1,7 @@
-.chess-board .white {
+.chess-board .WHITE {
     background: #eee;
 }
 
-.chess-board .black {
+.chess-board .BLACK {
     background: #aaa;
 }
